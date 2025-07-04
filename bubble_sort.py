@@ -17,5 +17,5 @@ if __name__ == "__main__":
     print("Before sorting:", numbers)
     bubble_sort(numbers)
     print("After sorting:", numbers)
-# time complexity: O(n^2) in worst case, O(n) in best case (when the array is already sorted)
-# space complexity: O(1) as it sorts in place
+                                                       # time complexity: O(n^2) in worst case, O(n) in best case (when the array is already sorted)
+                                                       # space complexity: O(1) as it sorts in place
