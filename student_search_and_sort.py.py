@@ -31,7 +31,7 @@ def binary_search(students, target):
             high = mid - 1
     return None
 
-# --- Main Program ---
+# --- Main Program starts ---
 students = []
 
 # Input student data
