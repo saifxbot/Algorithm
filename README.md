@@ -3,7 +3,7 @@
 Welcome! This repository is a personal learning space where I, a student passionate about programming, explore and implement basic algorithms in Python.
 
 
-## 📌 What’s included?
+##  What’s included?
 
 ### ✅ `student_search_and_sort.py`
 A complete mini-project combining:
