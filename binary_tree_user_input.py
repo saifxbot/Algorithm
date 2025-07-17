@@ -19,7 +19,7 @@ def build_tree():
             break
         elif left_val:
             current.left = Node(left_val)
-            queue.append(current.left)       # Add the left child to the queue for further processing
+            queue.append(current.left)         # Add the left child to the queue for further processing
 
         right_val = input(f"Enter RIGHT child of {current.value} (or 'exit' to stop): ")
         if right_val.lower() == "exit":
