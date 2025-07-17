@@ -2,7 +2,7 @@ from flask import Flask, request, render_template_string
 
 app = Flask(__name__)
 
-movies = [  # Your 30-movie list remains unchanged
+movies = [  
     {"name": "Inception", "genre": "Sci-Fi", "year": 2010, "rating": 8.8, "thumbnail": "https://m.media-amazon.com/images/I/51x3Q5Y+XlL._AC_SY445_.jpg"},
     {"name": "The Shawshank Redemption", "genre": "Drama", "year": 1994, "rating": 9.3, "thumbnail": "https://m.media-amazon.com/images/I/51NiGlapXlL._AC_SY445_.jpg"},
     {"name": "The Dark Knight", "genre": "Action", "year": 2008, "rating": 9.0, "thumbnail": "https://m.media-amazon.com/images/I/51T8ox4WfKL._AC_SY445_.jpg"},
