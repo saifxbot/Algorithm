@@ -5,28 +5,28 @@ class Node:
         self.right = None
 
 def build_tree():
-    val = input("Enter root node value (or 'exit' to cancel): ")
-    if val.lower() == "exit" or val == "":
+    val = input("Enter root node value (or 'exit' to cancel): ") 
+    if val.lower() == "exit" or val == "":     # If user wants to exit or doesn't provide a value
         return None
     root = Node(val)
     queue = [root]
 
     while queue:
-        current = queue.pop(0)
+        current = queue.pop(0)                 # Get the next node to process
 
         left_val = input(f"Enter LEFT child of {current.value} (or 'exit' to stop): ")
         if left_val.lower() == "exit":
             break
         elif left_val:
             current.left = Node(left_val)
-            queue.append(current.left)
+            queue.append(current.left)       # Add the left child to the queue for further processing
 
         right_val = input(f"Enter RIGHT child of {current.value} (or 'exit' to stop): ")
         if right_val.lower() == "exit":
             break
         elif right_val:
             current.right = Node(right_val)
-            queue.append(current.right)
+            queue.append(current.right)      # Add the right child to the queue for further processing
 
     return root
 
