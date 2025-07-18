@@ -1,8 +1,9 @@
-import time             # Importing time module to measure execution time
-import copy             # Importing copy module to create deep copies of lists
+import time
+import copy
+import heapq
 
+# -------- Sorting Algorithms -------- #
 
-# Bubble Sort
 def bubble_sort(arr):
     n = len(arr)
     for i in range(n):
@@ -14,8 +15,6 @@ def bubble_sort(arr):
         if not swapped:
             break
 
-
-# Selection Sort
 def selection_sort(arr):
     n = len(arr)
     for i in range(n):
@@ -25,8 +24,6 @@ def selection_sort(arr):
                 min_idx = j
         arr[i], arr[min_idx] = arr[min_idx], arr[i]
 
-
-# Insertion Sort
 def insertion_sort(arr):
     for i in range(1, len(arr)):
         key = arr[i]
@@ -36,34 +33,89 @@ def insertion_sort(arr):
             j -= 1
         arr[j + 1] = key
 
+def merge_sort(arr):
+    if len(arr) > 1:
+        mid = len(arr) // 2
+        L = arr[:mid]
+        R = arr[mid:]
 
-# Helper to measure time in ms
-def time_sort(sort_func, data):        # data is the list to be sorted
-    arr = copy.deepcopy(data)          # Create a copy to avoid modifying the original list
-    start = time.time()                
-    sort_func(arr)                     
+        merge_sort(L)
+        merge_sort(R)
+
+        i = j = k = 0
+        while i < len(L) and j < len(R):
+            if L[i] < R[j]:
+                arr[k] = L[i]
+                i += 1
+            else:
+                arr[k] = R[j]
+                j += 1
+            k += 1
+
+        while i < len(L):
+            arr[k] = L[i]
+            i += 1
+            k += 1
+
+        while j < len(R):
+            arr[k] = R[j]
+            j += 1
+            k += 1
+
+def quick_sort(arr):
+    def partition(low, high):
+        pivot = arr[high]
+        i = low - 1
+        for j in range(low, high):
+            if arr[j] < pivot:
+                i += 1
+                arr[i], arr[j] = arr[j], arr[i]
+        arr[i + 1], arr[high] = arr[high], arr[i + 1]
+        return i + 1
+
+    def quicksort_recursive(low, high):
+        if low < high:
+            pi = partition(low, high)
+            quicksort_recursive(low, pi - 1)
+            quicksort_recursive(pi + 1, high)
+
+    quicksort_recursive(0, len(arr) - 1)
+
+def heap_sort(arr):
+    heapq.heapify(arr)
+    arr[:] = [heapq.heappop(arr) for _ in range(len(arr))]
+
+# -------- Timing Helper -------- #
+
+def time_sort(name, func, data, results):
+    arr = copy.deepcopy(data)
+    start = time.time()
+    func(arr)
     end = time.time()
-    elapsed_ms = (end - start) * 1000  # converted to milliseconds
-    return arr, round(elapsed_ms, 4)   # rounding to 4 decimal places
+    duration = round((end - start) * 1000, 4)
+    results.append((name, duration))
+    print(f"{name}:")
+    print("Sorted:", arr)
+    print("Time:  ", duration, "ms\n")
 
+# -------- Main -------- #
 
-# Main test
-original_list = [9, 5, 2, 7, 3, 8, 6, 1, 4, 0]
+user_input = input("Enter numbers separated by space: ")
+original = [int(x) for x in user_input.strip().split()]
 
-# Bubble Sort
-sorted_bubble, time_bubble = time_sort(bubble_sort, original_list)
-print("🔵 Bubble Sort:")
-print("Sorted:", sorted_bubble)
-print("Time:  ", time_bubble, "ms\n")
+results = []
 
-# Selection Sort
-sorted_selection, time_selection = time_sort(selection_sort, original_list)
-print("🟡 Selection Sort:")
-print("Sorted:", sorted_selection)
-print("Time:  ", time_selection, "ms\n")
+print("\n🔵 Sorting Results:\n")
 
-# Insertion Sort
-sorted_insertion, time_insertion = time_sort(insertion_sort, original_list)
-print("🟢 Insertion Sort:")
-print("Sorted:", sorted_insertion)
-print("Time:  ", time_insertion, "ms")
+time_sort("Bubble Sort", bubble_sort, original, results)
+time_sort("Selection Sort", selection_sort, original, results)
+time_sort("Insertion Sort", insertion_sort, original, results)
+time_sort("Merge Sort", merge_sort, original, results)
+time_sort("Quick Sort", quick_sort, original, results)
+time_sort("Heap Sort", heap_sort, original, results)
+
+# -------- Best/Worst Summary -------- #
+results.sort(key=lambda x: x[1])
+print("📊 Summary:")
+print(f" Fastest: {results[0][0]} ({results[0][1]} ms)")
+print(f" Slowest: {results[-1][0]} ({results[-1][1]} ms)")
